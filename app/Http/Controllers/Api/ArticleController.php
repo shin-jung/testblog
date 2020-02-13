@@ -81,19 +81,27 @@ class ArticleController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = validator::make($request->all(),[
+            'title' => 'required|alpha_dash',
+            'content' => 'required|alpha_dash',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, data could not be added.',
+                'data' => '',
+            ], 404);
+        }
+
     	$updateArticle = $this->articleService->updateThisArticle($request, $id);
+        
     	if ($updateArticle) {
     		return response()->json([
     			'success' => true,
     			'message' => 'Success, you have updated the article.',
     			'data' => '',
     		], 200);
-    	} else {
-    		return response()->json([
-    			'success' => false,
-    			'message' => 'Sorry, you have not updated the article.',
-    			'data' => '', 
-    		], 404);
     	}
     }
 
