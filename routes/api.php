@@ -23,9 +23,13 @@ Route::group(['middleware' => 'auth.jwt'], function(){
 	Route::get('/user', 'Api\UserController@userList')->middleware('user');
 });
 
-Route::group(['middleware' => 'article'], function(){
+Route::group(['prefix' => 'article', 'middleware' => 'auth.jwt'], function(){
 
 	Route::get('/home', 'Api\ArticleController@index');
+
+	Route::post('/store', 'Api\ArticleController@store');
+
+	Route::get('/show/{id}', 'Api\ArticleController@show');
 
 });
 
