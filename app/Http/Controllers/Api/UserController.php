@@ -24,15 +24,9 @@ class UserController extends Controller
 		if ($showUser) {
 			return response()->json([
 				'success' => true,
-				'message' => 'Success.',
+				'message' => '成功，你可以看會員列表。',
 				'data' => $showUser,
 			], 200);
-		} else {
-			return response()->json([
-				'success' => false,
-				'message' => 'Sorry, have not any users.',
-				'data' => '',
-			], 401);
 		}
 	}
 }

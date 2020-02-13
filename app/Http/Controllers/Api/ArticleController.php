@@ -23,15 +23,15 @@ class ArticleController extends Controller
     	if ($showArticleList) {
     		return response()->json([
     			'success' => true,
-    			'message' => 'Success, you can see articles.',
+    			'message' => '成功，可以看到所有文章了。',
     			'data' => $showArticleList,
     		], 200);
     	} else {
     		return response()->json([
-    			'success' => false,
-    			'message' => 'Sorry.',
+    			'success' => true,
+    			'message' => '失敗, 現在沒有任何一篇文章。',
     			'data' => '',
-    		], 404);
+    		], 200);
     	}
     }
 
@@ -45,7 +45,7 @@ class ArticleController extends Controller
     	if ($validator->fails()) {
     		return response()->json([
     			'success' => false,
-    			'message' => 'Sorry, data could not be added.',
+    			'message' => '新增文章失敗，標題和內文輸入錯誤。',
     			'data' => '',
     		], 404);
     	}
@@ -55,7 +55,7 @@ class ArticleController extends Controller
     	if ($articleStore) {
     		return response()->json([
     			'success' => true,
-    			'message' => 'Success, you have added article.',
+    			'message' => '成功，你已新增文章。',
     			'data' => '',
     		], 200);
     	}
@@ -63,20 +63,21 @@ class ArticleController extends Controller
 
     public function show($id = null)
     {
-    	$showArticle = $this->articleService->oneArticle($id);
-    	if ($showArticle) {
-    		return response()->json([
-    			'success' => true,
-    			'message' => 'Success, you can look this article.',
-    			'data' => $showArticle,
-    		], 200);
-    	} else {
-    		return response()->json([
-    			'success' => false,
-    			'message' => 'Sorry.',
-    			'data' => '',
-    		], 404);
-    	}
+        $showArticle = $this->articleService->oneArticle($id);
+
+        if (!is_numeric($id)||$showArticle->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => '抱歉，網址輸入錯誤。',
+                'data' => '',
+            ], 404);
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => '成功，你可以看到這篇文章了。',
+                'data' => $showArticle,
+            ], 200);
+        }
     }
 
     public function update(Request $request, $id = null)
@@ -89,7 +90,7 @@ class ArticleController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, data could not be added.',
+                'message' => '更新文章失敗，標題和內文輸入錯誤。',
                 'data' => '',
             ], 404);
         }
@@ -99,7 +100,7 @@ class ArticleController extends Controller
     	if ($updateArticle) {
     		return response()->json([
     			'success' => true,
-    			'message' => 'Success, you have updated the article.',
+    			'message' => '成功，你已更新文章。',
     			'data' => '',
     		], 200);
     	}
@@ -111,15 +112,9 @@ class ArticleController extends Controller
     	if ($deleteArticle) {
     		return response()->json([
     			'success' => true,
-    			'message' => 'Success, you have deleted the article.',
+    			'message' => '成功，你已刪除文章。',
     			'data' => '',
     		], 200);
-    	} else {
-    		return response()->json([
-    			'success' => false,
-    			'message' => 'Sorry, you have not deleted the article.',
-    			'data' => '',
-    		], 404);
     	}
     }
 }

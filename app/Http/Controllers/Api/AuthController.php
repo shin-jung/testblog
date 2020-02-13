@@ -26,13 +26,13 @@ class AuthController extends Controller
     	if (!$token = JWTAuth::attempt($input)) {
     		return response()->json([
     			'success' => false,
-    			'message' => 'Invalid Email or Password.',
+    			'message' => '抱歉，信箱或密碼輸入錯誤。',
     			'data' => '',
     		], 401);
     	}
     	return response()->json([
     		'success' => true,
-    		'message' => 'Success, you can login.',
+    		'message' => '成功，你已登入。',
     		'data' => $token,
     	], 200);
     }
@@ -48,14 +48,14 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, you have some validate error.',
+                'message' => '抱歉，輸入格式有誤。',
                 'data' => '',
             ], 401);
         }
         if ($this->authService->register($request)) {
             return response()->json([
                 'success' => true,
-                'message' => 'Success.',
+                'message' => '成功，你已註冊。',
                 'data' => '',
             ], 200);
         }
@@ -67,13 +67,13 @@ class AuthController extends Controller
             JWTAuth::invalidate(JWTAuth::getToken());
             return response()->json([
                 'success' => true,
-                'message' => 'User logged out successfully.',
+                'message' => '成功，你已登出。',
                 'data' => '',
             ]);
         } catch (JWTException $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, the user cannot be logged out.',
+                'message' => '抱歉，你登出失敗。',
                 'data' => '',
             ], 500);
         }

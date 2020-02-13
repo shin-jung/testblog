@@ -19,7 +19,7 @@ class UserMiddleware
         if (!JWTAuth::user() || JWTAuth::user()->is_admin != 'admin') {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, you can not see users.',
+                'message' => '抱歉，你沒有資格可以觀看。',
                 'data' => '',
             ], 403);
         }

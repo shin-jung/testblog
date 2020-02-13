@@ -26,14 +26,14 @@ class JwtMiddleware extends BaseMiddleware
             if (!$token = JWTAuth::parseToken()->authenticate()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sorry user not found.',
+                    'message' => '抱歉，你沒有拿到token。',
                     'data' => '',
                 ], 401);
             }
         } catch (TokenInvalidException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, token is invalid.',
+                'message' => '抱歉，你的token是無效的。',
                 'data' => '',
             ], 401);
         } catch (TokenExpiredException $e) {
@@ -44,14 +44,14 @@ class JwtMiddleware extends BaseMiddleware
             } catch (JWTException $e) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Sorry, token is wrong.',
+                    'message' => '抱歉，你輸入的是就得token。',
                     'data' => '',
                 ], 401);
             }
         } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, token is absent.',
+                'message' => '抱歉，你的token輸入錯誤。',
                 'data' => '',
             ], 401);
         }

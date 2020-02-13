@@ -29,7 +29,7 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth.jwt'], function(){
 
 	Route::post('/store', 'Api\ArticleController@store');
 
-	Route::get('/show/{id?}', 'Api\ArticleController@show')->middleware('article');
+	Route::get('/show/{id?}', 'Api\ArticleController@show');
 
 	Route::post('/update/{id?}', 'Api\ArticleController@update')->middleware('article');
 
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth.jwt'], function(){
 Route::fallback(function() {
 	return response()->json([
 		'success' => false,
-		'message' => 'Sorry, can not find this web.',
+		'message' => '抱歉，你的網址輸入錯誤。',
 		'data' => '',
 	], 404);
 });
