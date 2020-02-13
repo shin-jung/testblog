@@ -31,6 +31,10 @@ Route::group(['prefix' => 'article', 'middleware' => 'auth.jwt'], function(){
 
 	Route::get('/show/{id}', 'Api\ArticleController@show');
 
+	Route::post('/update/{id}', 'Api\ArticleController@update');
+
+	Route::post('/delete/{id}', 'Api\ArticleController@delete');
+
 });
 
 Route::fallback(function() {

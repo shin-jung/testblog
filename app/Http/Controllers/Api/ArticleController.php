@@ -78,4 +78,40 @@ class ArticleController extends Controller
     		], 404);
     	}
     }
+
+    public function update(Request $request, $id)
+    {
+    	$updateArticle = $this->articleService->updateThisArticle($request, $id);
+    	if ($updateArticle) {
+    		return response()->json([
+    			'success' => true,
+    			'message' => 'Success, you have updated the article.',
+    			'data' => '',
+    		], 200);
+    	} else {
+    		return response()->json([
+    			'success' => false,
+    			'message' => 'Sorry, you have not updated the article.',
+    			'data' => '', 
+    		], 404);
+    	}
+    }
+
+    public function delete($id)
+    {
+    	$deleteArticle = $this->articleService->destoryThisArticle($id);
+    	if ($deleteArticle) {
+    		return response()->json([
+    			'success' => true,
+    			'message' => 'Success, you have deleted the article.',
+    			'data' => '',
+    		], 200);
+    	} else {
+    		return response()->json([
+    			'success' => false,
+    			'message' => 'Sorry, you have not deleted the article.',
+    			'data' => '',
+    		], 404);
+    	}
+    }
 }

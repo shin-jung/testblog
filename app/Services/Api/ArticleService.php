@@ -28,4 +28,14 @@ class ArticleService
 	{
 		return $this->articleRepository->lookOneArticle($id);
 	}
+
+	public function updateThisArticle(Request $request, $id)
+	{
+		return $this->articleRepository->updateThisArticle($request, $id);
+	}
+
+	public function destorythisArticle($id)
+	{
+		return $this->articleRepository->destoryThisArticle($id);
+	}
 }

@@ -26,4 +26,18 @@ class ArticleRepository
 	{
 		return Article::where('id', $id)->get();
 	}
+
+	public function updatethisArticle(Request $request, $id)
+	{
+		return Article::where('id', $id)
+				->update([
+					'title' => $request->title,
+					'content' => $request->content,
+				]);
+	}
+
+	public function destoryThisArticle($id)
+	{
+		return Article::where('id', $id)->delete();
+	}
 }
