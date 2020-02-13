@@ -61,7 +61,7 @@ class ArticleController extends Controller
     	}
     }
 
-    public function show($id)
+    public function show($id = null)
     {
     	$showArticle = $this->articleService->oneArticle($id);
     	if ($showArticle) {
@@ -79,7 +79,7 @@ class ArticleController extends Controller
     	}
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id = null)
     {
         $validator = validator::make($request->all(),[
             'title' => 'required|alpha_dash',
@@ -95,7 +95,7 @@ class ArticleController extends Controller
         }
 
     	$updateArticle = $this->articleService->updateThisArticle($request, $id);
-        
+
     	if ($updateArticle) {
     		return response()->json([
     			'success' => true,
@@ -105,7 +105,7 @@ class ArticleController extends Controller
     	}
     }
 
-    public function delete($id)
+    public function delete($id = null)
     {
     	$deleteArticle = $this->articleService->destoryThisArticle($id);
     	if ($deleteArticle) {
