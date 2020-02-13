@@ -1,11 +1,16 @@
 <?php
-namespace App\Repositories;
 
-use Illuminate\Http\Request;
+namespace App\Repositories\Api;
+
 use App\User;
+use Illuminate\Http\Request;
 
-class AuthRepository
+class UserRepository
 {
+	public function showUserList()
+	{
+		return User::all();
+	}
 
 	public function register(Request $request)
 	{
